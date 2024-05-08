@@ -1,6 +1,7 @@
 // app.js
 const express = require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const app = express();
 const port = 3300;
@@ -11,6 +12,8 @@ const routes = require('./routes.js');
 
 // Utilizando o middleware de roteamento
 app.use(cors());
+app.use(express.json());
+app.use(bodyParser.urlencoded({extended: false}));
 app.use('/api', routes);
 
 // Iniciando o servidor

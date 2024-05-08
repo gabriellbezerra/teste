@@ -12,6 +12,7 @@ router.get('/resp/', responsavelController.buscarTodosResponsaveis);
 router.get('/resp/:id', responsavelController.buscarResponsavelPorId);
 
 // Atualizar um responsável por ID
+//router.put('/resp/:id', (req, res) => {res.json({requestBody: req.body})});
 router.put('/resp/:id', responsavelController.atualizarResponsavel);
 
 // Excluir um responsável por ID
