@@ -29,9 +29,10 @@ module.exports = {
     },
 
     criarResp: (nome, codigoEmpresa) => {
+
         return new Promise((aceito, rejeitado) => {
 
-            db.query('INSERT INTO responsavel VALUES (?, ?)', [nome, codigoEmpresa], (error, results) => {
+            db.query('INSERT INTO responsavel (nome, CodEmpresa) VALUES (?, ?)', [nome, codigoEmpresa], (error, results) => {
                 if (error) {
                     rejeitado(error); 
                     return;
@@ -65,5 +66,5 @@ module.exports = {
                 aceito(results);
             });
         });
-    },
+    }
 }; 

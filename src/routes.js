@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const responsavelController = require('./controller/responsavelController.js');
+const responsavelController = require('./controllers/responsavelController.js');
 
 // Criar um novo responsável
-router.post('/resp/c/', responsavelController.criarResponsavel);
+router.post('/resp/', responsavelController.criarResponsavel);
 
 // Buscar todos os responsáveis
 router.get('/resp/', responsavelController.buscarTodosResponsaveis);

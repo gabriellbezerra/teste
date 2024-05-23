@@ -1,4 +1,4 @@
-const responsavelService = require('../service/responsavelService.js')
+const responsavelService = require('../services/responsavelService.js')
 
 module.exports = {
 
@@ -19,37 +19,41 @@ module.exports = {
   },
 
   criarResponsavel : async (req, res) => {
-    const { nome, codigoEmpresa } = req.body;
+    const nome = req.body.Nome;
+    const codEmpresa = parseInt(req.body.CodEmpresa);
 
     // Validação dos dados
-    if (!nome || !codigoEmpresa) {
-      return res.json({ mensagem: 'Dados inválidos' });
+    if (!nome) {
+      if (codEmpresa === null || !Number.isInteger(codEmpresa)){
+        return res.json({ mensagem: 'Dados inválidos' });
+      }
     }
 
     // Inserindo o responsável no banco de dados
-    const result = await responsavelService.criarResp(nome, codigoEmpresa);
+    const result = await responsavelService.criarResp(nome, codEmpresa);
     return res.send("{ mensagem: Novo responsável criado! }");
 },
 
-  atualizarResponsavel : async (req, res) => {
-    const id = req.params.id;
-    const { Nome, codEmpresa } = req.body;
-  
-    // Validação dos dados
-    if (!Nome || !codEmpresa) {
+atualizarResponsavel : async (req, res) => {
+  const id = req.params.id;
+  const nome = req.body.Nome;
+  const codEmpresa = parseInt(req.body.CodEmpresa);
 
-      //return res.json({ mensagem: 'Dados inválidos' });
-      return res.json(Nome, codEmpresa);
+  // Validação dos dados
+  if (!nome) {
+    if (codEmpresa === null || !Number.isInteger(codEmpresa)){
+      return res.json({ mensagem: 'Dados inválidos' });
     }
-  
-    const result = await responsavelService.atualizarResp(id, Nome, codEmpresa);
-  
-    if (result.affectedRows === 0) {
-      return res.json({ mensagem: 'Responsável não encontrado' });
-    }
-  
-    res.json({ mensagem: 'Responsável atualizado com sucesso' });
-  },
+  }
+
+  const result = await responsavelService.atualizarResp(id, nome, codEmpresa);
+
+  if (result.affectedRows === 0) {
+    return res.json({ mensagem: 'Responsável não encontrado' });
+  }
+
+  res.json({ mensagem: 'Responsável atualizado com sucesso' });
+},
   
   excluirResponsavel : async (req, res) => {
     const id = req.params.id;
